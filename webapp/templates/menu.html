@@ -30,7 +30,9 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#">Настройки</a>
-                        <a class="dropdown-item" href="#">Редактор пользователей</a>
+                        {% if current_user.is_admin %}
+                            <a class="dropdown-item" href="#">Редактор пользователей</a>
+                        {% endif %}
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ url_for('auth.logout') }}">Выход</a>
                 </div>

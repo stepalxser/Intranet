@@ -6,6 +6,7 @@ from webapp.database import db
 from webapp.user.models import User
 
 from webapp.auth.views import blueprint as auth_blueprint
+from webapp.user.decorators import reset_required
 
 
 def create_app():
@@ -26,7 +27,7 @@ def create_app():
 
     @app.route('/')
     @app.route('/index')
-    @flask_login.login_required
+    @reset_required
     def index():
         title = 'Главная'
         return flask.render_template('index.html', page_title=title)

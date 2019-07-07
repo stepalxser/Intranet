@@ -22,7 +22,7 @@ with app.app_context():
         print('Пароли не совпадают')
         sys.exit(0)
 
-    new_user = User(username=username, first_name=first_name, last_name=last_name, password=password1, privilege=True, need_reset=False)
+    new_user = User(username=username, first_name=first_name, last_name=last_name, password=password1, privilege=False, need_reset=True)
     db.session.add(new_user)
     db.session.commit()
     print('Создан пользователь с id={}'.format(new_user.username))
