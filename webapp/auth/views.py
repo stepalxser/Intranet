@@ -12,7 +12,7 @@ blueprint = Blueprint('auth', __name__, url_prefix='/auth')
 @blueprint.route('/login')
 def login():
     if flask_login.current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('main_page.index'))
     title = 'Авторизация'
 
     login_form = forms.LoginForm()
@@ -27,9 +27,9 @@ def process_login():
         user = User.query.filter(User.username == form.username.data).first()
         if user and user.verify_password(form.password.data):
             flask_login.login_user(user, remember=True)
-            return redirect(url_for('index'))
+            return redirect(url_for('main_page.index'))
     flash('Incorrect auth')
-    return redirect(url_for('auth/login'))
+    return redirect(url_for('auth.login'))
 
 
 @blueprint.route('/logout')
@@ -42,7 +42,7 @@ def logout():
 @blueprint.route('reset_password')
 def reset_password():
     if flask_login.current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('main_page.index'))
     title = 'Смена пароля'
 
     reset_password_form = forms.ResetPasswordForm()

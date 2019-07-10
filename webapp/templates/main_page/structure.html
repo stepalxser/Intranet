@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<br>
+        <div class="row justify-content-between">
+            <div class="col-1">
+
+            </div>
+            <div class="list-group col-2 dropright">
+                {% for unit in primary_units if unit.parent_id == 0 %}
+                        <a href="#unit{{ unit.id }}" class="list-group-item list-group-item-action">{{ unit.name }}</a>
+                        {% for subunit in primary_units if subunit.parent_id == unit.id %}
+                            {{ subunit.name }}
+                        {% endfor %}
+                {% endfor %}
+            </div>
+            <div class="col-4">
+                Сотрудники отдела
+            </div>
+        </div>
+
+
+{% endblock %}
+
+
+<div class="dropdown show">
+  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Выпадающая ссылка
+  </a>
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+  </div>
+</div>
+
+
+<div class="btn-group dropright">
+  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Dropright
+  </button>
+  <div class="dropdown-menu">
+    <!-- Dropdown menu links -->
+  </div>
+</div>

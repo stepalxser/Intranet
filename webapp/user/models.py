@@ -11,6 +11,8 @@ class User(db.Model, flask_login.UserMixin):
     last_name = db.Column(db.String(64), nullable=False, index=True)
     privilege = db.Column(db.Boolean, default=False)
     need_reset = db.Column(db.Boolean, default=True)
+    info = db.relationship('UserInfo', backref='user', uselist=False)
+    lead = db.relationship('Structure', backref='user')
 
     @property
     def password(self):
@@ -32,4 +34,18 @@ class User(db.Model, flask_login.UserMixin):
 
     def __repr__(self):
         return '<user> {}'.format(self.username)
+
+
+class UserInfo(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    info_owner = db.Column(db.String, db.ForeignKey('user.username'))
+    position = db.Column(db.String)
+    email = db.Column(db.String, unique=True)
+    internal_phone = db.Column(db.String, unique=True)
+    mobil_phone = db.Column(db.String, unique=True)
+    corp_messenger = db.Column(db.String, unique=True)
+    office = db.Column(db.String)
+    work_before = db.Column(db.String)
+    first_day = db.Column(db.DateTime)
+    birthday = db.Column(db.DateTime)
 

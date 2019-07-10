@@ -4,9 +4,10 @@ import flask_migrate
 
 from webapp.database import db
 from webapp.user.models import User
+from webapp.main_page.models import Structure
 
 from webapp.auth.views import blueprint as auth_blueprint
-from webapp.user.decorators import reset_required
+from webapp.main_page.views import blueprint as main_page_blueprint
 
 
 def create_app():
@@ -16,6 +17,7 @@ def create_app():
     migrate = flask_migrate.Migrate(app, db)
 
     app.register_blueprint(auth_blueprint)
+    app.register_blueprint(main_page_blueprint)
 
     login_manager = flask_login.LoginManager()
     login_manager.init_app(app)
@@ -24,12 +26,5 @@ def create_app():
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(user_id)
-
-    @app.route('/')
-    @app.route('/index')
-    @reset_required
-    def index():
-        title = 'Главная'
-        return flask.render_template('index.html', page_title=title)
 
     return app
