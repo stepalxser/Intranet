@@ -5,16 +5,23 @@
 <br>
     <div class="row">
         <div class="col-12">
-            <nav aria-label="breadcrumb">
+            <nav aria-label="breadcrumb ">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ url_for('main_page.structure') }}">Все подразделения</a></li>
+                    {% for unit_id, unit_name in unit_links %}
+                        {% if loop.last %}
+                            <li class="breadcrumb-item active" aria-current="page">{{ unit_name }}</li>
+                        {% else %}
+                            <li class="breadcrumb-item"><a href="{{ url_for('main_page.structure_init', unit_id=unit_id) }}">{{ unit_name }}</a></li>
+                        {% endif %}
+                    {% endfor %}
                 </ol>
             </nav>
         </div>
     </div>
         <div class="row justify-content-between col-12">
-            <div class="list-group col-4 ">
-                {% for unit in primary_units if unit.parent_id == 0 %}
+            <div class="list-group col-4">
+                {% for unit in  subunits  %}
                     <a href="{{ url_for('main_page.structure_init', unit_id=unit.id) }}" class="list-group-item list-group-item-action">{{ unit.name }}</a>
                 {% endfor %}
             </div>
@@ -25,5 +32,3 @@
 
 </div>
 {% endblock %}
-
-

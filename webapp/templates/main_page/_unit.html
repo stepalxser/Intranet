@@ -1,7 +1,0 @@
-{% for unit in primary_units %}
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    {% for subunit in primary_units if subunit.parent_id = unit.id %}
-
-    {% endfor %}
-    </div>
-{% endfor %}
