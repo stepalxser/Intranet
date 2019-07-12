@@ -57,16 +57,16 @@ def process_reset_password():
         user = User.query.filter(User.username == form.username.data).first()
         if not user:
             flash('Пользователя с такими логином не существует. Введите правильные данные.')
-            redirect(url_for('auth.reset_password'))
+            return redirect(url_for('auth.reset_password'))
         if not user.verify_password(form.old_password.data):
             flash('Вы ввели старый пароль неправильно. Попробуйте снова')
-            redirect(url_for('auth.reset_password'))
+            return redirect(url_for('auth.reset_password'))
 
     user.password = form.new_password1.data
     user.need_reset = False
     db.session.commit()
 
-    flash('Смена пароля выполнена успещно. Попробуйте зайти с новым паролем.')
+    flash('Смена пароля выполнена успешно. Попробуйте зайти с новым паролем.')
     return redirect(url_for('auth.login'))
 
 
