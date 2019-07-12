@@ -6,3 +6,4 @@ class Structure(db.Model):
     name = db.Column(db.String, nullable=False)
     lead = db.Column(db.String, db.ForeignKey('user.username'), nullable=False)
     parent_id = db.Column(db.Integer, nullable=False, default=0)
+    workers = db.relationship('UserInfo', backref='unit')

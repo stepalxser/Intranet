@@ -39,7 +39,7 @@ def logout():
     return redirect((url_for('auth.login')))
 
 
-@blueprint.route('reset_password')
+@blueprint.route('/reset_password')
 def reset_password():
     if flask_login.current_user.is_authenticated:
         return redirect(url_for('main_page.index'))

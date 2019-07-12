@@ -3,6 +3,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from webapp.database import db
 
+from webapp.main_page.models import Structure
+
 
 class User(db.Model, flask_login.UserMixin):
     username = db.Column(db.String(), unique=True, nullable=False, primary_key=True, index=True)
@@ -38,7 +40,7 @@ class User(db.Model, flask_login.UserMixin):
 
 class UserInfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    info_owner = db.Column(db.String, db.ForeignKey('user.username'))
+    info_owner = db.Column(db.String, db.ForeignKey('user.username'), nullable=False)
     position = db.Column(db.String)
     email = db.Column(db.String, unique=True)
     internal_phone = db.Column(db.String, unique=True)
@@ -48,4 +50,6 @@ class UserInfo(db.Model):
     work_before = db.Column(db.String)
     first_day = db.Column(db.DateTime)
     birthday = db.Column(db.DateTime)
+    work_unit = db.Column(db.Integer, db.ForeignKey('structure.id'))
+    avatar = db.Column(db.LargeBinary)
 
