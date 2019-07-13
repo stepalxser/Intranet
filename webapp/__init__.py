@@ -1,6 +1,7 @@
 import flask
 import flask_login
 import flask_migrate
+import flask_avatars
 
 from webapp.database import db
 from webapp.user.models import User
@@ -16,6 +17,7 @@ def create_app():
     app.config.from_pyfile('config.py')
     db.init_app(app)
     migrate = flask_migrate.Migrate(app, db)
+    avatars = flask_avatars.Avatars(app)
 
     app.register_blueprint(auth_blueprint)
     app.register_blueprint(main_page_blueprint)

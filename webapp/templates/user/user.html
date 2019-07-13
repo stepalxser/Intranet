@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="container">
     <div class="row">
-            <div class="col-4">
+            <div class="col-4 mx-auto">
                 {% with messages = get_flashed_messages() %}
                     {% if messages %}
                         <div class="alert alert-warning" role="alert">
@@ -14,5 +15,25 @@
                 {% endwith %}
             </div>
     </div>
-    Заглушка под будущий контент
+    <div class="row">
+        <div class="col-4">
+            <p class="h4"> {{ user.first_name }} {{ user.last_name }} </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            {% if user.avatar_l %}
+                <img src="{{ url_for(get_avatar, filename=user.avatar_l) }}"
+            {% else %}
+                <img src="{{ avatars.default(size='s') }}">
+            {% endif %}
+        </div>
+        <div class="col-4">
+            2
+        </div>
+        <div class="col-4">
+            3
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -51,5 +51,7 @@ class UserInfo(db.Model):
     first_day = db.Column(db.DateTime)
     birthday = db.Column(db.DateTime)
     work_unit = db.Column(db.Integer, db.ForeignKey('structure.id'))
-    avatar = db.Column(db.LargeBinary)
+    avatar_s = db.Column(db.String(64))
+    avatar_m = db.Column(db.String(64))
+    avatar_l = db.Column(db.String(64))
 

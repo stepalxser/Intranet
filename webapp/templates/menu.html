@@ -14,7 +14,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Обьявления</a>
-                </li>
+                </li>`
             </ul>
 
 
@@ -25,10 +25,12 @@
 
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
-                      Пользователь
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="{{ avatars.default(size='s') }}" class="rounded-circle">
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <div class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ url_for('user.user_page', username=current_user.username) }}">👤 {{ current_user.first_name }} {{current_user.last_name }}</a>
+                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Настройки</a>
                         {% if current_user.is_admin %}
                             <a class="dropdown-item" href="#">Редактор пользователей</a>
