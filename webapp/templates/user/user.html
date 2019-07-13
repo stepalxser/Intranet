@@ -21,18 +21,73 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-4">
+        <div class="col-4 shadow p-3 mb-5 bg-white rounded ">
+            <div class="d-flex justify-content-center">
             {% if user.avatar_l %}
-                <img src="{{ url_for(get_avatar, filename=user.avatar_l) }}"
+                <img src="{{ url_for(get_avatar, filename=user.avatar_l) }}" class="d-flex justify-content-around">
             {% else %}
-                <img src="{{ avatars.default(size='s') }}">
+                <img src="{{ avatars.default(size='l') }}">
             {% endif %}
+            </div>
+            <br>
+            <div class="d-flex justify-content-center">
+                <button type="button" class="btn btn-primary" style="width: 256px;">Поблагодарить</button>
+            </div>
         </div>
-        <div class="col-4">
-            2
+
+        <div class="col-4 shadow p-3 mb-5 bg-white rounded">
+            <div>
+                <a href="#" class="text-decoration-none h6">{{ user.info.position }}</a>
+            </div>
+            <br>
+            <div>
+                <p class="h5">Контакты 📖</p>
+            </div>
+            <br>
+            <table class="table table-borderless table-sm">
+              <tbody>
+                <tr>
+                  <td>Мобильный телефон</td>
+                  <td class="float-right"><a href="#" class="text-decoration-none">{{ user.info.mobil_phone }}</a></td>
+                </tr>
+                <tr>
+                  <td>Внутренний телефон</td>
+                  <td class="float-right"><a href="#" class="text-decoration-none">{{ user.info.internal_phone }}</a></td>
+                </tr>
+                <tr>
+                  <td>Email</td>
+                  <td class="float-right"><a href="#" class="text-decoration-none">{{ user.info.email }}</a></td>
+                </tr>
+                <tr>
+                  <td>Мессенджер</td>
+                  <td class="float-right"><a href="#" class="text-decoration-none">{{ user.info.corp_messenger}}</a></td>
+                </tr>
+                <tr>
+                  <td>Офис</td>
+                  <td class="float-right"><a href="#" class="text-decoration-none">{{ user.info.office}}</a></td>
+                </tr>
+              </tbody>
+            </table>
         </div>
-        <div class="col-4">
-            3
+        <div class="col-4 shadow p-3 mb-5 bg-white rounded">
+            <br>
+            <div>
+                <p class="h5">О работе</p>
+            </div>
+            <br>
+            <div>
+                <p>В нашей компании с {{ user.info.first_day.strftime('%d %B %Y') }} </p>
+                <p>Руководитель:</p>
+            </div>
+             <br>
+            <div>
+                <p class="h5">Информация</p>
+            </div>
+            <br>
+            <div>
+                <p>День рождения отмечает {{ user.info.birthday.strftime('%d %B') }}</p>
+                <p>До нашей компании работал в <a href="#" class="text-decoration-none">{{user.info.work_before }}</a></p>
+            </div>
         </div>
     </div>
 </div>
