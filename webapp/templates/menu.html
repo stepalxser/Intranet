@@ -33,7 +33,7 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Настройки</a>
                         {% if current_user.is_admin %}
-                            <a class="dropdown-item" href="#">Редактор пользователей</a>
+                            <a class="dropdown-item" href="{{ url_for('admin.index') }}">Редактор пользователей</a>
                         {% endif %}
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ url_for('auth.logout') }}">Выход</a>

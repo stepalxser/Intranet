@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand-lg sticky-top  navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <a class="navbar-brand" href="/">@Интранет</a>
+        {% if current_user.is_authenticated %}
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Новый сотрудник</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Редактирование сотрудников</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Увольнение сотрудника</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin.new_unit') }}">Добавление подразделения</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Редактирование подразделения</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Распустить подразделение</a>
+                </li>
+            </ul>
+
+
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+            </form>
+
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="{{ avatars.default(size='s') }}" class="rounded-circle">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item text-decoration-none" href="{{ url_for('user.user_page', username=current_user.username) }}">👤 {{ current_user.first_name }} {{current_user.last_name }}</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Настройки</a>
+                        {% if current_user.is_admin %}
+                            <a class="dropdown-item" href="{{ url_for('admin.index') }}">Редактор пользователей</a>
+                        {% endif %}
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ url_for('auth.logout') }}">Выход</a>
+                </div>
+              </li>
+            </ul>
+        {% endif %}
+    </div>
+</nav>

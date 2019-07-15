@@ -17,7 +17,7 @@
     </div>
     <div class="row">
         <div class="col-4">
-            <p class="h4"> {{ user.first_name }} {{ user.last_name }} </p>
+            <p class="h4"> {{ user.first_name }} {{ user.last_name }}</p>
         </div>
     </div>
     <div class="row">
@@ -77,7 +77,7 @@
             <br>
             <div>
                 <p>В нашей компании с {{ user.info.first_day.strftime('%d %B %Y') }} </p>
-                <p>Руководитель:</p>
+                <p>Руководитель: <a href="{{ url_for('user.user_page', username=lead.username) }}" class="text-decoration-none">{{ lead.first_name }} {{ lead.last_name }}</a></p>
             </div>
              <br>
             <div>

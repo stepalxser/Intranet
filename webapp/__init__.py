@@ -12,6 +12,7 @@ from webapp.main_page.models import Structure
 from webapp.auth.views import blueprint as auth_blueprint
 from webapp.main_page.views import blueprint as main_page_blueprint
 from webapp.user.views import blueprint as user_blueprint
+from webapp.admin.views import blueprint as admin_blueprint
 
 
 def create_app():
@@ -21,10 +22,10 @@ def create_app():
     migrate = flask_migrate.Migrate(app, db)
     avatars = flask_avatars.Avatars(app)
 
-
     app.register_blueprint(auth_blueprint)
     app.register_blueprint(main_page_blueprint)
     app.register_blueprint(user_blueprint)
+    app.register_blueprint(admin_blueprint)
 
     login_manager = flask_login.LoginManager()
     login_manager.init_app(app)
