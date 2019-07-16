@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, flash, redirect, url_for
 
 from webapp.user.decorators import admin_required
-from webapp.admin.forms import NewUnitForm
+from webapp.admin.forms import NewUnitForm, EditUnitForm, DeleteUnitForm
 from webapp.main_page.models import Structure
 from webapp.user.models import User
 from webapp.database import db
@@ -46,3 +46,55 @@ def new_unit():
             else:
                 flash('Указанного пользователя для руководства не существует')
     return render_template('admin/new_unit.html', page_title=title, form=form)
+
+
+@admin_required
+@blueprint.route('/edit_unit', methods=['GET', 'POST'])
+def edit_unit():
+    form = EditUnitForm()
+    title = 'Редактор'
+    if form.validate_on_submit():
+        unit = Structure.query.filter_by(name=form.name.data).first()
+        if unit is not None:
+            if form.new_name.data:
+                unit.name = form.new_name.data
+            if form.parent_id.data:
+                parent_unit = Structure.query.filter_by(name=form.parent_id.data).first()
+                unit.parent_id = parent_unit.id
+            if form.lead.data:
+                unit.lead = form.lead.data
+
+            db.session.add(unit)
+            db.session.commit()
+            flash('Изменения внесены успешно')
+            return render_template('admin/edit_unit.html', page_title=title, form=form)
+        else:
+            flash('Подразделение не существует')
+            return render_template('admin/edit_unit.html', page_title=title, form=form)
+    return render_template('admin/edit_unit.html', page_title=title, form=form)
+
+
+@admin_required
+@blueprint.route('/delete_unit', methods=['GET', 'POST'])
+def delete_unit():
+    form = DeleteUnitForm()
+    title = 'Редактор'
+    unit = Structure.query.filter_by(name=form.name.data).first()
+    if form.validate_on_submit():
+        if unit is not None:
+            relative_units = Structure.query.filter_by(parent_id=unit.id).all()
+            if relative_units is None:
+                db.session.delete(unit)
+                db.session.commit()
+                flash('Подразделение удалено')
+                return render_template('admin/delete_unit.html', page_title=title, form=form)
+            else:
+                units = [unit.name for unit in relative_units]
+                units = ', '.join(units)
+                flash(f'У подразделения есть зависимые отделы: {units}.')
+                flash('Прежде чем его удалить необходимо перенести или растустить их')
+                return render_template('admin/delete_unit.html', page_title=title, form=form)
+        else:
+            flash('Подразделение не существует')
+            return render_template('admin/delete_unit.html', page_title=title, form=form)
+    return render_template('admin/delete_unit.html', page_title=title, form=form)
