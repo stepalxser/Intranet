@@ -1,0 +1,30 @@
+{% extends "admin/base_admin.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+            <div class="col-4 mx-auto">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div class="alert alert-warning" role="alert">
+                        {% for message in messages %}
+                            {{ message }}<br>
+                        {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+            </div>
+    </div>
+
+    <div class="row">
+        <form  class="col-4" action="{{ url_for('admin.firing_user') }}" method="POST">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+              {{ form.name.label }}
+              {{ form.name() }}
+            </div>
+                {{ form.submit }}
+        </form>
+    </div>
+
+{% endblock %}

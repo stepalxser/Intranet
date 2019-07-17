@@ -22,3 +22,8 @@ class EditUnitForm(FlaskForm):
 class DeleteUnitForm(FlaskForm):
     name = StringField('Введите название подразделения', validators=[DataRequired()], render_kw={'class': 'form-control'})
     submit = SubmitField('Распустить подразделение', render_kw={'class': 'btn btn-secondary'})
+
+
+class FiringUserForm(FlaskForm):
+    name = StringField('Введите логин пользователя', validators=[DataRequired()], render_kw={'class': 'form-control'})
+    submit = SubmitField('Уволить сотрудника', render_kw={'class': 'btn btn-secondary'})

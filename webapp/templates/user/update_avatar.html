@@ -1,0 +1,40 @@
+<div class="col-4 shadow p-3 mb-5 bg-white rounded">
+            <br>
+            <div>
+                <p class="h5">Загрузка аватара</p>
+            </div>
+            <br>
+            <form  class="col-4" action="" method="POST">
+            {{ form_avatar.hidden_tag() }}
+            <div class="form-group">
+              {{ form_avatar.image() }}
+            </div>
+                {{ form_avatar.submit }}
+            </form>
+            {% include "user/_crop.html" %}
+
+    <div class="modal fade" id="Crop" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Редактирование аватара</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        {{ avatars.jcrop_css() }}
+      <div class="modal-body">
+        {{ form_crop.x }}
+        {{ form_crop.y }}
+        {{ form_crop.w }}
+        {{ form_crop.h }}
+      </div>
+      <div class="modal-footer">
+        {{ form_crop.submit }}
+      </div>
+        {{ avatars.jcrop_js() }}
+        {{ avatars.init_jcrop() }}
+    </div>
+  </div>
+</div>
+        </div>

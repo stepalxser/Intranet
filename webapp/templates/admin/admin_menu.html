@@ -7,10 +7,10 @@
                     <a class="nav-link" href="#">Новый сотрудник</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Редактирование сотрудников</a>
+                    <a class="nav-link" href="{{ url_for('admin.edit_user') }}">Редактирование сотрудников</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Увольнение сотрудника</a>
+                    <a class="nav-link" href="{{ url_for('admin.firing_user') }}#">Увольнение сотрудника</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('admin.new_unit') }}">Добавление подразделения</a>

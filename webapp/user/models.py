@@ -13,6 +13,7 @@ class User(db.Model, flask_login.UserMixin):
     last_name = db.Column(db.String(64), nullable=False, index=True)
     privilege = db.Column(db.Boolean, default=False)
     need_reset = db.Column(db.Boolean, default=True)
+    actual = db.Column(db.Boolean, default=True)
     info = db.relationship('UserInfo', backref='user', uselist=False)
     lead = db.relationship('Structure', backref='user')
 

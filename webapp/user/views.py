@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, send_from_directory
+from flask import Blueprint, render_template, send_from_directory, request
 from flask_login import login_required
 
 from webapp.user.models import User, Structure
@@ -22,3 +22,10 @@ def user_page(username):
 @blueprint.route('/avatars/<path:filename>')
 def get_avatar(filename):
     return send_from_directory(AVATARS_SAVE_PATH, filename)
+
+
+@login_required
+@blueprint.route('/upload_avatar', methods={'POST'})
+def upload_avatar():
+    f = request.files.get('file')
+    raw_filename = avatars.save_avatar(f)

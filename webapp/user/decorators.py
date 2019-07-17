@@ -33,5 +33,9 @@ def reset_required(func):
             flask.flash('По соображениям безопасности, вам необходимо ввести новый пароль')
             flask_login.logout_user()
             return flask.redirect(flask.url_for('auth.reset_password'))
+        elif not flask_login.current_user.actual:
+            flask.flash('Произошла ошибка, обратитесь к администратору')
+            flask_login.logout_user()
+            return flask.redirect(flask.url_for('auth.login'))
         return func(*args, **kwargs)
     return decorated_view

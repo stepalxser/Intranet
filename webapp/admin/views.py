@@ -1,10 +1,14 @@
 from flask import Blueprint, render_template, flash, redirect, url_for
+from flask_login import logout_user
 
 from webapp.user.decorators import admin_required
-from webapp.admin.forms import NewUnitForm, EditUnitForm, DeleteUnitForm
+from webapp.user.forms import UploadAvatarForm, CropAvatarForm
+from webapp.admin.forms import NewUnitForm, EditUnitForm, DeleteUnitForm, FiringUserForm
 from webapp.main_page.models import Structure
 from webapp.user.models import User
 from webapp.database import db
+
+from webapp.admin.utils import generate_random_password
 
 blueprint = Blueprint('admin', __name__, url_prefix='/admin')
 
@@ -98,3 +102,40 @@ def delete_unit():
             flash('Подразделение не существует')
             return render_template('admin/delete_unit.html', page_title=title, form=form)
     return render_template('admin/delete_unit.html', page_title=title, form=form)
+
+
+@admin_required
+@blueprint.route('/firing_user', methods=['GET', 'POST'])
+def firing_user():
+    form = FiringUserForm()
+    title = 'Редактор'
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.name.data).first()
+        if user is None:
+            flash('Такого пользователя не существует')
+            return render_template('admin/firing_user.html', form=form, page_title=title)
+        lead_units = Structure.query.filter_by(lead=user.username).all()
+        if lead_units:
+            lead_units = [unit.name for unit in lead_units]
+            lead_units = ', '.join(lead_units)
+            flash(f"Пользователь является руководителем для подразделений: {lead_units}.")
+            flash('Прежде чем уволить сотрудника, необходимо передать руководство другим людям.')
+            return render_template('admin/firing_user.html', form=form, page_title=title)
+
+        user.info.work_unit = None
+        user.actual = False
+        user.password = generate_random_password()
+        db.session.commit()
+
+        flash('Пользователь уволен')
+        return render_template('admin/firing_user.html', form=form, page_title=title)
+    return render_template('admin/firing_user.html', form=form, page_title=title)
+
+
+@admin_required
+@blueprint.route('/edit_user')
+def edit_user():
+    title = 'Редактор'
+    form_avatar = UploadAvatarForm()
+    form_crop = CropAvatarForm
+    return render_template('admin/edit_user.html')
