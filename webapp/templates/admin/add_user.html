@@ -1,0 +1,116 @@
+{% extends "admin/base_admin.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+            <div class="col-4 mx-auto">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div class="alert alert-warning" role="alert">
+                        {% for message in messages %}
+                            {{ message }}<br>
+                        {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+            </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-4 shadow p-3 mb-5 bg-white rounded ">
+            <div>
+                    <p class="h5">Главная информация</p>
+            </div>
+            <form>
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                  {{ form.username.label }}
+                  {{ form.username() }}
+                </div>
+                <div class="form-group">
+                  {{ form.first_name.label }}
+                  {{ form.first_name() }}
+                </div>
+                <div class="form-group">
+                  {{ form.last_name.label }}
+                  {{ form.last_name() }}
+                </div>
+                <div class="form-group">
+                  {{ form.password.label }}
+                  {{ form.password() }}
+                  <p class="h6">*Пароль для первого входа автоматически сгенерирован, необходимо передать пользователю</p>
+                </div>
+            </form>
+        </div>
+        <div class="col-4 shadow p-3 mb-5 bg-white rounded ">
+            <div>
+                    <p class="h5">О работе</p>
+            </div>
+            <form>
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                  {{ form.position.label }}
+                  {{ form.position() }}
+                </div>
+                <div class="form-group">
+                  {{ form.work_unit.label }}
+                  {{ form.work_unit() }}
+                </div>
+                <div class="form-group">
+                  {{ form.first_day.label }}
+                  {{ form.first_day() }}
+                </div>
+                <div class="form-group">
+                  {{ form.office.label }}
+                  {{ form.office() }}
+                </div>
+                <div class="form-group">
+                    {{ form.admin() }}
+                    {{ form.admin.label(class_='form-check-label') }}
+                </div>
+            </form>
+        </div>
+
+        <div class="col-4 shadow p-3 mb-5 bg-white rounded ">
+            <div>
+                    <p class="h5">Контакты</p>
+            </div>
+            <form>
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                  {{ form.email.label }}
+                  {{ form.email() }}
+                </div>
+                <div class="form-group">
+                  {{ form.internal_phone.label }}
+                  {{ form.internal_phone() }}
+                </div>
+                <div class="form-group">
+                  {{ form.mobil_phone.label }}
+                  {{ form.mobil_phone() }}
+                </div>
+                <div class="form-group">
+                  {{ form.corp_messenger.label }}
+                  {{ form.corp_messenger() }}
+                </div>
+                <div>
+                    <p class="h5">Личная информация</p>
+                </div>
+                <div class="form-group">
+                  {{ form.work_before.label }}
+                  {{ form.work_before() }}
+                </div>
+                <div class="form-group">
+                  {{ form.birthday.label }}
+                  {{ form.birthday() }}
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <form  class="col-4" action="{{ url_for('admin.add_user') }}" method="POST">
+            {{ form.submit() }}
+        </form>
+    </div>
+</div>
+{% endblock %}
