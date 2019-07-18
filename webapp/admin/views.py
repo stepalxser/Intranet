@@ -1,8 +1,9 @@
-from flask import Blueprint, render_template, flash, redirect, url_for
+from flask import Blueprint, render_template, flash, redirect, url_for, current_app
 from flask_login import logout_user
+import flask_avatars
 
 from webapp.user.decorators import admin_required
-from webapp.user.forms import UploadAvatarForm, CropAvatarForm
+from webapp.user.forms import AvatarForm
 from webapp.admin.forms import NewUnitForm, EditUnitForm, DeleteUnitForm, FiringUserForm
 from webapp.main_page.models import Structure
 from webapp.user.models import User
@@ -136,6 +137,4 @@ def firing_user():
 @blueprint.route('/edit_user')
 def edit_user():
     title = 'Редактор'
-    form_avatar = UploadAvatarForm()
-    form_crop = CropAvatarForm
     return render_template('admin/edit_user.html')

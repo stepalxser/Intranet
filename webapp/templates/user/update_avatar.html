@@ -4,14 +4,13 @@
                 <p class="h5">Загрузка аватара</p>
             </div>
             <br>
-            <form  class="col-4" action="" method="POST">
+            <form  class="col-4" action="{{ url_for('user.upload_avatar') }}" method="POST">
             {{ form_avatar.hidden_tag() }}
             <div class="form-group">
               {{ form_avatar.image() }}
             </div>
-                {{ form_avatar.submit }}
+                {{ form_avatar.presubmit() }}
             </form>
-            {% include "user/_crop.html" %}
 
     <div class="modal fade" id="Crop" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -24,17 +23,14 @@
       </div>
         {{ avatars.jcrop_css() }}
       <div class="modal-body">
-        {{ form_crop.x }}
-        {{ form_crop.y }}
-        {{ form_crop.w }}
-        {{ form_crop.h }}
+        {{ avatars.crop_box('user.get_avatar', file) }}  <!-- crop window -->
+        {{ avatars.preview_box('user.get_avatar', file) }}
       </div>
       <div class="modal-footer">
-        {{ form_crop.submit }}
+        {{ form_avatar.submit }}
       </div>
         {{ avatars.jcrop_js() }}
         {{ avatars.init_jcrop() }}
     </div>
   </div>
 </div>
-        </div>

@@ -1,9 +1,12 @@
-from flask import Blueprint, render_template, send_from_directory, request
+from flask import Blueprint, render_template, send_from_directory, request, current_app
 from flask_login import login_required
 
 from webapp.user.models import User, Structure
+from webapp.user.forms import AvatarForm
 from webapp.main_page.models import Structure
+
 from webapp.config import AVATARS_SAVE_PATH
+
 
 blueprint = Blueprint('user', __name__, url_prefix='/user')
 
@@ -25,7 +28,9 @@ def get_avatar(filename):
 
 
 @login_required
-@blueprint.route('/upload_avatar', methods={'POST'})
+@blueprint.route('/upload_avatar', methods={'GET', 'POST'})
 def upload_avatar():
-    f = request.files.get('file')
-    raw_filename = avatars.save_avatar(f)
+    form = AvatarForm()
+    current_app.avatar._Avatars.default()
+    return render_template('user/update_avatar.html', form_avatar=form)
+
