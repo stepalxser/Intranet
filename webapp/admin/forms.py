@@ -43,12 +43,26 @@ class AddUser(FlaskForm):
     corp_messenger = StringField('Аккаунт в корпоративном чате', validators=[DataRequired()], render_kw={'class': 'form-control'})
     office = StringField('Офис, в котором работает сотрудник', validators=[DataRequired()], render_kw={'class': 'form-control'})
     work_before = StringField('Компания в которой сотрудник работал ДО', validators=[DataRequired()], render_kw={'class': 'form-control'})
-    first_day = DateField('Дата выхода на работу', validators=[DataRequired()],format='%d-%m-%Y',
+    first_day = DateField('Дата выхода на работу', validators=[DataRequired()], format='%d-%m-%Y',
                           render_kw={'class': 'form-control', "placeholder": "Укажите в формате 31-12-2009"})
     birthday = DateField('День рождения', validators=[DataRequired()], format='%d-%m',
                          render_kw={'class': 'form-control', "placeholder": "Укажите в формате 31-12"})
-    submit = SubmitField('Добавить нового сотрудника', render_kw={'class': 'btn btn-secondary'})
     admin = BooleanField('Права администратора в интранете', default=False)
+    submit = SubmitField('Добавить нового сотрудника', render_kw={'class': 'btn btn-secondary'})
+
 
 class EditUser(FlaskForm):
-    pass
+    username = StringField('Введите логин пользователя', validators=[DataRequired()],
+                           render_kw={'class': 'form-control', "placeholder": "Введите логин пользователя"})
+    first_name = StringField('Имя сотрудника', render_kw={'class': 'form-control'})
+    last_name = StringField('Фамилия', render_kw={'class': 'form-control'})
+    position = StringField('Должность сотрудника', render_kw={'class': 'form-control'})
+    work_unit = StringField('Название подразделения', render_kw={'class': 'form-control'})
+    email = StringField('Почта сотрудника',  render_kw={'class': 'form-control'})
+    internal_phone = StringField('Внутренний телефон',  render_kw={'class': 'form-control'})
+    mobil_phone = StringField('Мобильный телефон',  render_kw={'class': 'form-control'})
+    corp_messenger = StringField('Аккаунт в корпоративном чате', render_kw={'class': 'form-control'})
+    office = StringField('Офис, в котором работает сотрудник', render_kw={'class': 'form-control'})
+    admin = BooleanField('Права администратора в интранете', default=False)
+    submit = SubmitField('Редактировать данные сотрудника', render_kw={'class': 'btn btn-secondary'})
+

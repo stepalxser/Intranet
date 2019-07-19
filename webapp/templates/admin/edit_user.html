@@ -15,10 +15,74 @@
                 {% endwith %}
             </div>
     </div>
+    <br>
+    <form class="row" action="{{ url_for('admin.edit_user') }}" method="POST">
+        <div>
+            <p class="h4">Введите логин пользователя, которму необходимо редактирование</p>
+            <div class="form-group">
+                {{ form.username() }}
+            </div>
+            <p class="h5">Поля, которые не будете редактировать - оставьте пустыми</p>
+        </div>
+        <div class="col-4 shadow p-3 mb-5 bg-white rounded ">
+            <div>
+                <p class="h5">Главная информация</p>
+            </div>
+            {{ form.hidden_tag() }}
 
-    <div class="row">
+            <div class="form-group">
+              {{ form.first_name.label }}
+              {{ form.first_name() }}
+            </div>
+            <div class="form-group">
+              {{ form.last_name.label }}
+              {{ form.last_name() }}
+            </div>
+            <div class="form-group">
+                {{ form.admin() }}
+                {{ form.admin.label(class_='form-check-label') }}
+            </div>
+        </div>
+        <div class="col-4 shadow p-3 mb-5 bg-white rounded ">
+            <div>
+                <p class="h5">О работе</p>
+            </div>
+            <div class="form-group">
+              {{ form.position.label }}
+              {{ form.position() }}
+            </div>
+            <div class="form-group">
+              {{ form.work_unit.label }}
+              {{ form.work_unit() }}
+            </div>
+            <div class="form-group">
+              {{ form.office.label }}
+              {{ form.office() }}
+            </div>
 
-    </div>
-
+        </div>
+        <div class="col-4 shadow p-3 mb-5 bg-white rounded ">
+            <div>
+                <p class="h5">Контакты</p>
+            </div>
+            <div class="form-group">
+              {{ form.email.label }}
+              {{ form.email() }}
+            </div>
+            <div class="form-group">
+              {{ form.internal_phone.label }}
+              {{ form.internal_phone() }}
+            </div>
+            <div class="form-group">
+              {{ form.mobil_phone.label }}
+              {{ form.mobil_phone() }}
+            </div>
+            <div class="form-group">
+              {{ form.corp_messenger.label }}
+              {{ form.corp_messenger() }}
+            </div>
+        </div>
+        {{ form.submit() }}
+    </form>
 </div>
 {% endblock %}
